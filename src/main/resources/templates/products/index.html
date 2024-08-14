@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <script th:src="@{/js/jquery.js}" defer></script>
+    <script th:src="@{/js/bootstrap.js}" defer></script>
+    <script th:src="@{/js/bootstrap.bundle.js}" defer></script>
+    <title>Products</title>
+</head>
+<body>
+<div class="container">
+    <h2>Check for prods</h2>
+    <a class="btn btn-warning btn-md mt-2 mb-2" th:href="@{/products/create}">Create Product</a>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>
+                Name
+            </th>
+            <th>Brand</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Image</th>
+            <th>Created</th>
+            <th>Action</th>
+        </tr>
+        <tbody>
+    <tr th:each="el : ${products}">
+    <td th:text="${el.id}"></td>
+        <td th:text="${el.name}"></td>
+        <td th:text="${el.brand}"></td>
+        <td th:text="${el.category}"></td>
+        <td th:text="@{${el.price} +'RM'}"></td>
+        <td>
+        <img th:src="@{'/images/' + ${el.imageFileName}}" alt="" width="100" />
+        </td>
+        <td th:text="${el.createdAt.toString().substring(0,10)}"></td>
+        <td style="white-space:nowrap">
+            <a class="btn btn-primary btn-sm" th:href="@{/products/edit(id=${el.id})}">Edit</a>
+            <a class="btn btn-danger btn-sm" th:href="@{/products/delete(id=${el.id})}"
+               onclick="return confirm('Are you sure...')">Delete</a>
+        </td>
+
+    </tr>
+    </tbody>
+        </thead>
+    </table>
+</div>
+</body>
+
+</html>
